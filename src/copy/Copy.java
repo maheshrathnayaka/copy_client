@@ -12,6 +12,6 @@ package copy;
  */
 public class Copy {
     public void copyImages(String fileName){
-        
+        // Implementation here...
     }
 }
