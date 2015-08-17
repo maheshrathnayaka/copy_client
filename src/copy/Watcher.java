@@ -23,6 +23,8 @@ public class Watcher {
     private final Map<WatchKey,Path> keys;
     private final boolean recursive;
     private boolean trace = false;
+    File sourPath = null;
+    File destPath = null;
 
     @SuppressWarnings("unchecked")
     static <T> WatchEvent<T> cast(WatchEvent<?> event) {
@@ -67,7 +69,9 @@ public class Watcher {
     /**
      * Creates a WatchService and registers the given directory
      */
-    Watcher(Path dir, boolean recursive) throws IOException {
+    Watcher(Path dir, boolean recursive, String sourcePath, String destinationPath) throws IOException {
+        this.sourPath = new File(sourcePath);
+        this.destPath = new File(destinationPath);
         this.watcher = FileSystems.getDefault().newWatchService();
         this.keys = new HashMap<WatchKey,Path>();
         this.recursive = recursive;
@@ -117,14 +121,16 @@ public class Watcher {
                 Path name = ev.context();
                 Path child = dir.resolve(name);
 
-                // print out event
-//                System.out.format("%s: %s\n", event.kind().name(), child); // Entry Created, Modified, Delete
-//                System.out.println("Event type : "+event.kind().name());
-//                System.out.println("Path : "+child);
+//                 print out event
+                System.out.format("%s: %s\n", event.kind().name(), child); // Entry Created, Modified, Delete
+                System.out.println("Event type : "+event.kind().name());
+                System.out.println("Path : "+child + " AND : " + event.context());
                 if(event.kind().name().equalsIgnoreCase("ENTRY_CREATE")){
                     System.out.println(child + " : Created");
                     Copy c = new Copy();
-                    c.copyImages(child.toString());
+                    c.copyImages(sourPath,destPath);
+                    System.out.println("Path in String : " + child.toString());
+                    System.out.println("Destination path : " + destPath + event.context());
                 }else if(event.kind().name().equalsIgnoreCase("ENTRY_DELETE")){
                     System.out.println(child + " : Deleted");
                 }
@@ -160,21 +166,21 @@ public class Watcher {
         System.exit(-1);
     }
 
-    public static void main(String[] args) throws IOException {
-        // parse arguments
-        if (args.length == 0 || args.length > 2)
-            usage();
-        boolean recursive = false;
-        int dirArg = 0;
-        if (args[0].equals("-r")) {
-            if (args.length < 2)
-                usage();
-            recursive = true;
-            dirArg++;
-        }
-
-        // register directory and process its events
-        Path dir = Paths.get(args[dirArg]);
-        new Watcher(dir, recursive).processEvents();
-    }
+//    public static void main(String[] args) throws IOException {
+//        // parse arguments
+//        if (args.length == 0 || args.length > 2)
+//            usage();
+//        boolean recursive = false;
+//        int dirArg = 0;
+//        if (args[0].equals("-r")) {
+//            if (args.length < 2)
+//                usage();
+//            recursive = true;
+//            dirArg++;
+//        }
+//
+//        // register directory and process its events
+//        Path dir = Paths.get(args[dirArg]);
+//        new Watcher(dir, recursive).processEvents();
+//    }
 }

@@ -15,7 +15,9 @@ import java.nio.file.Paths;
  */
 public class FTPRunner {
     public static void main(String[] args) throws IOException {
-        Watcher w = new Watcher(Paths.get("D:/jpg/"), true);
+        String watchingPath = "D:/jpg/";
+        String copingPath = "C:/wamp/www/dental_project/tempImg/";
+        Watcher w = new Watcher(Paths.get(watchingPath), true, watchingPath, copingPath);
         w.processEvents();
     }
 }
