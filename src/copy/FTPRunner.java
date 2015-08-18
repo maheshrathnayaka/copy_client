@@ -15,9 +15,11 @@ import java.nio.file.Paths;
  */
 public class FTPRunner {
     public static void main(String[] args) throws IOException {
-        String watchingPath = "D:/jpg/";
-        String copingPath = "C:/wamp/www/dental_project/tempImg/";
-        Watcher w = new Watcher(Paths.get(watchingPath), true, watchingPath, copingPath);
-        w.processEvents();
+//        String watchingPath = "D:/jpg/";
+//        String copingPath = "C:/wamp/www/dental_project/tempImg/";
+//        Watcher w = new Watcher(Paths.get(watchingPath), true, watchingPath, copingPath);
+//        w.processEvents();
+        CopyFrame cf = new CopyFrame();
+        cf.setVisible(true);
     }
 }
