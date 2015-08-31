@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package copy;
 
 import java.io.IOException;
@@ -21,15 +20,7 @@ public class CopyFrame extends javax.swing.JFrame {
      * Creates new form CopyFrame
      */
     public CopyFrame() {
-        try {
-            initComponents();
-            String watchingPath = "D:/jpg/";
-            String copingPath = "C:/wamp/www/dental_project/tempImg/";
-            Watcher w = new Watcher(Paths.get(watchingPath), true, watchingPath, copingPath);
-            w.processEvents();
-        } catch (IOException ex) {
-            Logger.getLogger(CopyFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        initComponents();
     }
 
     /**
@@ -136,7 +127,16 @@ public class CopyFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CopyFrame().setVisible(true);
+                
+                try {
+                    new CopyFrame().setVisible(true);
+                    String watchingPath = "D:/jpg/";
+                    String copingPath = "C:/wamp/www/dental_project/tempImg/";
+                    Watcher w = new Watcher(Paths.get(watchingPath), true, watchingPath, copingPath);
+                    w.processEvents();
+                } catch (IOException ex) {
+                    Logger.getLogger(CopyFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
