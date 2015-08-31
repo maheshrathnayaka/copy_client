@@ -6,7 +6,6 @@
 
 package copy;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.logging.Level;
@@ -22,7 +21,15 @@ public class CopyFrame extends javax.swing.JFrame {
      * Creates new form CopyFrame
      */
     public CopyFrame() {
-        initComponents();
+        try {
+            initComponents();
+            String watchingPath = "D:/jpg/";
+            String copingPath = "C:/wamp/www/dental_project/tempImg/";
+            Watcher w = new Watcher(Paths.get(watchingPath), true, watchingPath, copingPath);
+            w.processEvents();
+        } catch (IOException ex) {
+            Logger.getLogger(CopyFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -34,65 +41,70 @@ public class CopyFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         lblStatus = new javax.swing.JLabel();
-        btnConnect = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Smart DentAssist : V-1.0");
         setResizable(false);
 
-        lblStatus.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        lblStatus.setForeground(new java.awt.Color(255, 0, 0));
-        lblStatus.setText("Not Connected!");
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnConnect.setText("Connect");
-        btnConnect.addActionListener(new java.awt.event.ActionListener() {
+        lblStatus.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        lblStatus.setForeground(new java.awt.Color(0, 255, 127));
+        lblStatus.setText("Connected!");
+
+        btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConnectActionPerformed(evt);
+                btnExitActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblStatus))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblStatus)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExit)
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblStatus)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnConnect)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnConnect)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
-        try {           
-            String watchingPath = "D:/jpg/";
-            String copingPath = "C:/wamp/www/dental_project/tempImg/";
-            Watcher w = new Watcher(Paths.get(watchingPath), true, watchingPath, copingPath);
-            w.processEvents();
-            lblStatus.setText("Connected!");
-            lblStatus.setForeground(Color.GREEN);
-            lblStatus.setAlignmentX(CENTER_ALIGNMENT);
-            btnConnect.setVisible(false);
-        } catch (IOException ex) {
-            Logger.getLogger(CopyFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnConnectActionPerformed
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        System.exit(WIDTH);
+    }//GEN-LAST:event_btnExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,7 +142,8 @@ public class CopyFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConnect;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblStatus;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,16 +6,13 @@
 
 package copy;
 
-import java.io.IOException;
-import java.nio.file.Paths;
-
 /**
  *
  * @author Mahesh Rathnayaka
  */
-public class FTPRunner {
-    public static void main(String[] args) throws IOException {
-//        String watchingPath = "D:/jpg/";
+public class CopyRunner {
+    public static void main(String[] args) {
+        //        String watchingPath = "D:/jpg/";
 //        String copingPath = "C:/wamp/www/dental_project/tempImg/";
 //        Watcher w = new Watcher(Paths.get(watchingPath), true, watchingPath, copingPath);
 //        w.processEvents();
